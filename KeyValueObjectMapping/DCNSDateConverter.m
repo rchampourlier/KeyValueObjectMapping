@@ -12,6 +12,7 @@
 @interface DCNSDateConverter()
 @property(nonatomic, strong) NSString *pattern;
 - (BOOL) validDouble: (NSString *) doubleValue;
+- (NSDateFormatter *)dateFormatter;
 @end
 
 @implementation DCNSDateConverter
@@ -36,8 +37,7 @@
         return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
     }else{
       if ([value isKindOfClass:[NSString class]]) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = self.pattern;
+        NSDateFormatter *formatter = [self dateFormatter];
         return [formatter dateFromString:value];
       } else {
         return nil;
@@ -55,4 +55,20 @@
 - (BOOL) validDouble: (NSString *) doubleValue {
   return [[[NSNumberFormatter alloc] init] numberFromString:doubleValue] != nil;
 }
+
+
+#pragma mark - Private Methods
+
+- (NSDateFormatter *)dateFormatter {
+  
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+  
+  [dateFormatter setLocale:enUSPOSIXLocale];
+  [dateFormatter setDateFormat:self.pattern];
+  [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+  
+  return dateFormatter;
+}
+
 @end
