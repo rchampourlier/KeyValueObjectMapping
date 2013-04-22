@@ -16,7 +16,6 @@
 @property(nonatomic, readonly) Class classe;
 @property(nonatomic, readonly, getter = isPrimitive) BOOL primitive;
 @property(nonatomic, readonly, getter = isIdType) BOOL idType;
-@property(nonatomic, readonly, getter = isValidObject) BOOL validObject;
 
 - (id)initWithClass: (Class) classs;
 - (id)initWithAttributeDescription: (NSString *) description
