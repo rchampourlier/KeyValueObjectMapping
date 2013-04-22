@@ -37,7 +37,7 @@
     return self;
 }
 - (id)transformValue:(id)value forDynamicAttribute: (DCDynamicAttribute *) attribute {
-    if ([attribute isKindOfClass:[NSNull class]]) {
+    if ([value isKindOfClass:[NSNull class]]) {
       return nil;
     }
     if([attribute isValidObject]){
