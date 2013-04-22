@@ -38,7 +38,7 @@
 }
 - (id)transformValue:(id)value forDynamicAttribute: (DCDynamicAttribute *) attribute {
     if ([value isKindOfClass:[NSNull class]]) {
-      return nil;
+      return value;
     }
     if([attribute isValidObject]){
         BOOL valueIsKindOfDictionary = [value isKindOfClass:[NSDictionary class]];
