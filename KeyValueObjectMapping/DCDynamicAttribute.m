@@ -17,7 +17,6 @@
 @implementation DCDynamicAttribute
 @synthesize primitive = _primitive;
 @synthesize idType = _idType;
-@synthesize validObject = _validObject;
 @synthesize objectMapping = _objectMapping;
 @synthesize typeName = _typeName;
 @synthesize classe = _classe;
@@ -26,7 +25,6 @@
     self = [super init];
     if (self) {
         _objectMapping = [[DCObjectMapping alloc] initWithClass:classs];
-        _validObject = YES;
     }
     return self;
 }
@@ -83,7 +81,6 @@
     }else if ([typeInformation length] == 2) {
         _idType = YES;
     } else {
-        _validObject = YES;
         attrituteClass = [typeInformation substringWithRange:NSMakeRange(3, [typeInformation length] - 4)];
     }
     return attrituteClass;

@@ -37,17 +37,15 @@
     return self;
 }
 - (id)transformValue:(id)value forDynamicAttribute: (DCDynamicAttribute *) attribute {
-    if([attribute isValidObject]){
-        BOOL valueIsKindOfDictionary = [value isKindOfClass:[NSDictionary class]];
-        BOOL attributeNotKindOfDictionary = ![attribute.objectMapping.classReference isSubclassOfClass:[NSDictionary class]];
-        if( valueIsKindOfDictionary && attributeNotKindOfDictionary ){
-            DCKeyValueObjectMapping *parser = [DCKeyValueObjectMapping mapperForClass:attribute.objectMapping.classReference 
-                                                                     andConfiguration:self.configuration];
-            value = [parser parseDictionary:(NSDictionary *) value];
-        }else {
-            id parsedValue = [self parseSimpeValue:value forDynamicAttribute:attribute];
-            if(parsedValue) return parsedValue;
-        }
+    BOOL valueIsKindOfDictionary = [value isKindOfClass:[NSDictionary class]];
+    BOOL attributeNotKindOfDictionary = ![attribute.objectMapping.classReference isSubclassOfClass:[NSDictionary class]];
+    if( valueIsKindOfDictionary && attributeNotKindOfDictionary ){
+      DCKeyValueObjectMapping *parser = [DCKeyValueObjectMapping mapperForClass:attribute.objectMapping.classReference
+                                                               andConfiguration:self.configuration];
+      value = [parser parseDictionary:(NSDictionary *) value];
+    }else {
+      id parsedValue = [self parseSimpeValue:value forDynamicAttribute:attribute];
+      if(parsedValue) return parsedValue;
     }
     DCSimpleConverter *simpleParser = [[DCSimpleConverter alloc] init];
     return [simpleParser transformValue:value forDynamicAttribute:attribute];
