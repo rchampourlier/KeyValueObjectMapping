@@ -37,8 +37,8 @@
     return self;
 }
 - (id)transformValue:(id)value forDynamicAttribute: (DCDynamicAttribute *) attribute {
-    if ([attribute isKindOfClass:[NSNull class]]) {
-      return nil;
+    if ([value isKindOfClass:[NSNull class]]) {
+      return value;
     }
     BOOL valueIsKindOfDictionary = [value isKindOfClass:[NSDictionary class]];
     BOOL attributeNotKindOfDictionary = ![attribute.objectMapping.classReference isSubclassOfClass:[NSDictionary class]];
