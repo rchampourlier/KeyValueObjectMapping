@@ -29,6 +29,7 @@
     return self;
 }
 - (id)transformValue:(id)value forDynamicAttribute:(DCDynamicAttribute *)attribute {
+    if ([value isKindOfClass:[NSNull class]]) return nil;
     BOOL validDouble = [self validDouble:[NSString stringWithFormat:@"%@", value]];
     if(validDouble){
         return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
@@ -40,7 +41,7 @@
 - (id)serializeValue:(id)value forDynamicAttribute:(DCDynamicAttribute *)attribute {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = self.pattern;
-    return [formatter stringFromDate:value];    
+    return [formatter stringFromDate:value];
 }
 - (BOOL) canTransformValueForClass: (Class) class {
     return [class isSubclassOfClass:[NSDate class]];
@@ -53,14 +54,14 @@
 #pragma mark - Private Methods
 
 - (NSDateFormatter *)dateFormatter {
-  
+
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
   NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-  
+
   [dateFormatter setLocale:enUSPOSIXLocale];
   [dateFormatter setDateFormat:self.pattern];
   [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-  
+
   return dateFormatter;
 }
 
